@@ -1,1 +1,2 @@
-# Tucil1_13521151
+# Tugas kecil 1 stima
+## Vanessa Rebecca Wiyono - 13521151
