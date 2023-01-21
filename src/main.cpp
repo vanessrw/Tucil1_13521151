@@ -19,12 +19,14 @@ void lexicograph(char *inputStr, char *data, int terakhir, int idx);
 void GameSolver(string arrStr[], int arrNum[]);
 void printRec(char set[], string inputStr, int n, int k, int arrNum[]);
 void printAll(char set[], int k, int n, int arrNum[]);
+int inputRandom();
 
 // ---- MAIN ----
 int main() {
     string inputUser;
-    string isSave;
+    string isSave, isManual;
     float timer;
+
     printf(" ____________________________________________________________________________________________________\n");
 	printf("| __          __  _                            _          ___  _  _      _____                       |\n");
 	printf("| \\ \\        / / | |                          | |        |__ \\| || |    / ____|                      |\n");
@@ -34,8 +36,20 @@ int main() {
 	printf("|     \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|  \\__\\___/  |____|  |_|    \\_____|\\__,_|_| |_| |_|\\___| |\n");
 	printf("|____________________________________________________________________________________________________|\n");
     cout << "=============== 24 GAME SOLVER ===============" << endl;
-    cout << "Masukkan kartu ^^ : ";
-    cin >> inputUser;
+    cout << "apakah anda ingin meng-input kartu secara manual [Y/N]?: ";
+    cin >> isManual;
+
+    if (isManual == "Y"){
+        cout << "Masukkan kartu ^^ : ";
+        cin >> inputUser;  
+    }
+    else if (isManual == "N"){
+        inputUser = to_string(inputRandom());
+        cout << "generated numbers: "<< inputUser << endl;
+    }
+    else {
+        cout << "perintah tidak valid !"<< endl;
+    }
 
     cout << "Apakah anda ingin menyimpan solusi [Y / N] ? :  ";
     cin >> isSave;
@@ -124,6 +138,23 @@ void StartInput(int n, int k, string userInput) {
     else {
         printAll(Operators, k, n, arrInt);
     }
+}
+
+int inputRandom() {
+    int random, res;
+    string toStr, toStr2;
+    //srand((unsigned) time(NULL));
+    int i = 1;
+    random = 1 + (rand() % 13);
+    toStr = to_string(random);
+
+    for (int i = 2; i <=4; i++){
+        random = 1 + (rand() % 13);
+        toStr2 = to_string(random);
+        toStr.append(toStr2);
+    }
+    res = stoi(toStr);
+    return res;
 }
 
 int calculate(char a, int b, int c) {
