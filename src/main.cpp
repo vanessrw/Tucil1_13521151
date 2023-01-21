@@ -37,21 +37,29 @@ int main() {
     cin >> isSave;
 
     timer = clock();
+    for (int i = 0; i < a; i++){
+        StartInput(4, 3, inputUser);
+        permutation(inputUser, 3);
+    }
     if (isSave == "Y"){        
-        for (int i = 0; i < a; i++){
-            StartInput(4, 3, inputUser);
-            permutation(inputUser, 3);
-        }
+        ofstream myFile;
+        myFile.open("solusi.txt", ofstream::app);
+        myFile << "Jadi, terdapat " << bykSolusi << " solusi";
     }
     else if (isSave == "N"){
-        for (int i = 0; i < a; i++){
-            StartInput(4, 3, inputUser);
-            permutation(inputUser, 3);
-        }
+        char filename[] = "solusi.txt";
+        int result = remove(filename);
+        cout << result;
     }
+    else {
+        cout << "perintah salah !" << endl;
+        char filename[] = "solusi.txt";
+        int result = remove(filename);
+        cout << result;    
+    }
+
     timer = (clock() - timer) / CLOCKS_PER_SEC;
     printf(" --- EXECUTION TIME: %.5f s ---\n", timer);
-    //tadi for blabla disini (diluar if else)
 
     if (bykSolusi == 0){
         cout << "Tidak ada solusi" << endl;
@@ -119,6 +127,30 @@ int factorial(int n){
     return hasil;
 }
 
+void lexicograph(char *inputStr, char *data, int terakhir, int index) {
+    
+    int i;
+    for (i = 0; i < 4; i++) {
+        data[index] = inputStr[i];
+        if (index == terakhir)
+            cout << data << endl;
+        else
+            lexicograph(inputStr, data, terakhir, index + 1);
+    }
+}
+
+void combinations(const string &s, vector<int> &arr, int n) {
+    if (n == s.size()) {
+        for (int i = 0; i != n; i++) {
+            cout << s[arr[i]] << endl;
+        }
+        return;
+    }
+    for (int i = 0; i < s.size(); i++) {
+        arr[n] = i;
+        combinations(s, arr, n + 1);
+    }
+}
 void GameSolver(string arrStr[], int arrNum[]) {
     char a;
     char cc[1];
@@ -145,7 +177,6 @@ void GameSolver(string arrStr[], int arrNum[]) {
     }
     
     if (total == 24) {
-        
         bykSolusi++;
         cout << "solusi " << bykSolusi << ": ";
         cout << "[(" << arrNum[0] << "";
@@ -157,12 +188,9 @@ void GameSolver(string arrStr[], int arrNum[]) {
         cout << "" << arrNum[3] << "";
         cout << " = 24" << endl;
 
-        //saving
+        // save ke txt
         ofstream myFile;
-        myFile.open("solusi.txt");
-    
-        myFile << "terdapat "<< bykSolusi << " solusi, yaitu:" << endl;
-        
+        myFile.open("solusi.txt", ofstream::app);
         myFile << "[(" << arrNum[0] << "";
         myFile << arrStr[0];
         myFile << "" << arrNum[1] << ")";
@@ -171,7 +199,6 @@ void GameSolver(string arrStr[], int arrNum[]) {
         myFile << arrStr[2];
         myFile << "" << arrNum[3] << "";
         myFile << " = " << total << endl;
-
         myFile.close();
     }
 }
@@ -226,33 +253,7 @@ int calculate(char a, int b, int c) {
     return hasil;
 }
 
-void combinations(const string &s, vector<int> &arr, int n) {
-    if (n == s.size()) {
-        for (int i = 0; i != n; i++) {
-            cout << s[arr[i]] << endl;
-        }
-        return;
-    }
-    for (int i = 0; i < s.size(); i++) {
-        arr[n] = i;
-        combinations(s, arr, n + 1);
-    }
-}
-
-void lexicograph(char *inputStr, char *data, int terakhir, int index) {
-    
-    int i;
-    for (i = 0; i < 4; i++) {
-        data[index] = inputStr[i];
-        if (index == terakhir)
-            cout << data << endl;
-        else
-            lexicograph(inputStr, data, terakhir, index + 1);
-    }
-}
-
 void printRec(char set[], string inputStr, int n, int k, int arrNum[]) {
-
     if (k == 0) {
         char char_array[5];
         string num2[5];
