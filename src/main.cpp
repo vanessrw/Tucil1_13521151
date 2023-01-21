@@ -180,9 +180,9 @@ void lexicograph(char *inputStr, char *data, int terakhir, int idx) {
 }
 
 void GameSolver(string arrStr[], int arrNum[]) {
-    char a;
-    char cc[1];
-    int total = 0, num = 0;
+    char a, b, cc[1];
+    int total = 0, total2 = 0, num = 0, num2 = 0;
+    int numAA = 0, numBB = 0, numCC = 0, numDD = 0, numAB = 0, numCD = 0;
 
     for (int i = 0; i < 3; i++) {
         strcpy(cc, arrStr[i].c_str());
@@ -213,7 +213,7 @@ void GameSolver(string arrStr[], int arrNum[]) {
         cout << "" << arrNum[2] << "]";
         cout << arrStr[2];
         cout << "" << arrNum[3] << "";
-        cout << " = 24" << endl;
+        cout << " = " << total << endl;
 
         // save ke txt
         ofstream myFile;
@@ -226,6 +226,50 @@ void GameSolver(string arrStr[], int arrNum[]) {
         myFile << arrStr[2];
         myFile << "" << arrNum[3] << "";
         myFile << " = " << total << endl;
+        myFile.close();
+    }
+
+    for (int i = 0; i < 3; i++){
+        strcpy(cc, arrStr[i].c_str());
+        b = cc[0];
+
+        if (i == 0){
+            numAA = arrNum[0];
+            numBB = arrNum[1];
+            numAB = calculate(b, numAA, numBB);
+        }
+        if (i == 1){
+            numCC = arrNum[2];
+            numDD = arrNum[3];
+            numCD = calculate(b, numCC, numDD);
+        }
+        if (i == 2){
+            total2 = calculate(b, numAB, numCD);
+        }
+    }
+    if (total2 == 24){
+        bykSolusi++;
+        cout << "solusi " << bykSolusi << ": ";
+        cout << "[(" << arrNum[0] << "";
+        cout << arrStr[0];
+        cout << "" << arrNum[1] << ")";
+        cout << arrStr[1];
+        cout << "" << arrNum[2] << "]";
+        cout << arrStr[2];
+        cout << "" << arrNum[3] << "";
+        cout << " = " << total2 << endl;
+
+        // save ke txt LAGI
+        ofstream myFile;
+        myFile.open("solusi.txt", ofstream::app);
+        myFile << "[(" << arrNum[0] << "";
+        myFile << arrStr[0];
+        myFile << "" << arrNum[1] << ")";
+        myFile << arrStr[1];
+        myFile << "" << arrNum[2] << "]";
+        myFile << arrStr[2];
+        myFile << "" << arrNum[3] << "";
+        myFile << " = " << total2 << endl;
         myFile.close();
     }
 }
