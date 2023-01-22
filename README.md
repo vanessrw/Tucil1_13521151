@@ -8,12 +8,12 @@ GNU g++ compiler
 
 ## How To Run
 Alternative 1: 
-1. Double click the `.exe` program in the `bin` folder
+1. Double click the `main.exe` program in the `bin` folder
 2. You're ready to go ! :)
 
 Alternative 2:
-1. Compile the main program in `src` by typing `g++ -o app main.cpp`
-2. Execute `app.exe`
+1. Compile the main program in `src` by typing `g++ -o main main.cpp`
+2. Execute `main.exe`
 3. All done ! :)
 
 ## Author
