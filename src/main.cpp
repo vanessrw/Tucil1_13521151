@@ -20,7 +20,7 @@ void lexicograph(char *inputStr, char *data, int terakhir, int idx);
 void GameSolver(string arrStr[], int arrNum[]);
 void printRec(char set[], string inputStr, int n, int k, int arrNum[]);
 void printAll(char set[], int k, int n, int arrNum[]);
-int inputRandom();
+void inputRandom();
 
 // ---- MAIN ----
 int main() {
@@ -43,10 +43,16 @@ int main() {
     if (isManual == "Y"){
         cout << "Masukkan kartu ^^ : ";
         cin >> inputUser;  
+        timer = clock();
+        do{
+        StartInput(4, 3, inputUser);
+        } while (next_permutation(inputUser.begin(), inputUser.end()));
+        timer = (clock() - timer) / CLOCKS_PER_SEC;
     }
     else if (isManual == "N"){
-        inputUser = to_string(inputRandom());
-        cout << "generated numbers: "<< inputUser << endl;
+        timer = clock();
+        inputRandom();
+        timer = (clock() - timer) / CLOCKS_PER_SEC;
     }
     else {
         cout << "perintah tidak valid !"<< endl;
@@ -55,20 +61,17 @@ int main() {
     cout << "Apakah anda ingin menyimpan solusi [Y / N] ? :  ";
     cin >> isSave;
 
-    timer = clock();
-    do{
-        StartInput(4, 3, inputUser);
-    } while (next_permutation(inputUser.begin(), inputUser.end()));
-
     if (isSave == "Y"){        
         ofstream myFile;
         myFile.open("solusi.txt", ofstream::app);
         myFile << "Jadi, terdapat " << bykSolusi << " solusi" << endl;
+        cout << "solusi berhasil disimpan :)" << endl;
     }
     else if (isSave == "N"){
         char filename[] = "solusi.txt";
         int result = remove(filename);
         cout << result;
+        cout << "baik, sampai jumpa !" << endl;
     }
     else {
         cout << "perintah salah !" << endl;
@@ -77,7 +80,6 @@ int main() {
         cout << result;    
     }
 
-    timer = (clock() - timer) / CLOCKS_PER_SEC;
     printf(" --- EXECUTION TIME: %.5f s ---\n", timer);
 
     if (bykSolusi == 0){
@@ -141,21 +143,19 @@ void StartInput(int n, int k, string userInput) {
     }
 }
 
-int inputRandom() {
+void inputRandom() {
     int random, res;
     string toStr, toStr2;
-    //srand((unsigned) time(NULL));
+    
     int i = 1;
-    random = 1 + (rand() % 13);
-    toStr = to_string(random);
-
-    for (int i = 2; i <=4; i++){
-        random = 1 + (rand() % 13);
-        toStr2 = to_string(random);
-        toStr.append(toStr2);
+    srand(time(0));
+    for (int i = 0; i < 4; i ++){
+        random = 1 + (rand() % 9);
+        arrInt[i] = random;
     }
-    res = stoi(toStr);
-    return res;
+
+    char Operators[] = {'+', '-', '*', '/'};
+    printAll(Operators, 3, 4, arrInt);
 }
 
 int calculate(char a, int b, int c) {
