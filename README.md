@@ -1,4 +1,5 @@
-# Tugas kecil 1 stima - 24 GameSolver
+![welcome](https://user-images.githubusercontent.com/64979714/213955024-58bd9302-a9d5-47ca-a870-b6509c661743.png)
+# Tugas kecil 1 stima: 24 GameSolver
 
 ## Description
 This program will solve the 24 Card Game using `Brute-Force Algorithm`, generating all possible solutions for user's cards to return the value of 24 and is written in C++ programming language. User will be able to input 4 cards respectively containing a number in the range [2, ..., 9] or alphabets [J, Q, K, A] where J contains the value of 11, followed by Q with the value of 12, K with the value of 13, and A with the value of 1. It is possible to save all of the solutions in seperate files which is `Solusi.txt` (not mandatory).
